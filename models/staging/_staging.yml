@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_local_bike__stores
+    columns:
+      - name: store_id
+        data_tests: [unique, not_null]
+
+  - name: stg_local_bike__customers
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
+
+  - name: stg_local_bike__products
+    columns:
+      - name: product_id
+        data_tests: [unique, not_null]
+
+  - name: stg_local_bike__orders
+    columns:
+      - name: order_id
+        data_tests: [unique, not_null]
+
+  - name: stg_local_bike__order_items
+    columns:
+      - name: order_id
+        data_tests: [not_null]
+      - name: product_id
+        data_tests: [not_null]
+
+  - name: stg_local_bike__stocks
+    columns:
+      - name: store_id
+        data_tests: [not_null]
+      - name: product_id
+        data_tests: [not_null]
