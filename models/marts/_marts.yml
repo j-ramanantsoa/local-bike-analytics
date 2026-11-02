@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: fct_sales
+    description: "Une ligne par ligne de commande (un produit dans une commande)."
+    columns:
+      - name: sale_id
+        description: "Clé unique : order_id-product_id."
+        data_tests: [unique, not_null]
+      - name: order_date
+        data_tests: [not_null]
+      - name: store_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_stores')
+                field: store_id
+      - name: customer_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: product_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: discount
+        description: "Remise en fraction (0.10 = 10 %)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [0, 0.05, 0.1]
+                quote: false
+
+  - name: fct_stocks
+    description: "Une ligne par produit et par magasin."
+    columns:
+      - name: stock_id
+        data_tests: [unique, not_null]
+      - name: store_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_stores')
+                field: store_id
+      - name: product_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+
+  - name: dim_stores
+    description: "Les 5 magasins Local Bike."
+    columns:
+      - name: store_id
+        data_tests: [unique, not_null]
+
+  - name: dim_products
+    description: "Les 21 produits du catalogue."
+    columns:
+      - name: product_id
+        data_tests: [unique, not_null]
+      - name: category
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['VTT', 'Route', 'Ville', 'Électrique', 'Accessoires']
+
+  - name: dim_customers
+    description: "Les 300 clients."
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
