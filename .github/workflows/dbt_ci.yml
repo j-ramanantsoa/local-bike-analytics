@@ -1,0 +1,64 @@
+# Intégration continue : lance `dbt build` (modèles + tests) à chaque pull request vers main.
+# Les tables sont construites dans un dataset dédié (local_bike_ci) pour ne pas toucher au dev.
+# La clé du compte de service vient du secret GitHub GCP_SA_KEY : elle n'est jamais dans le repo.
+
+name: dbt CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: dbt-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dbt-build:
+    name: dbt build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer dbt
+        run: pip install "dbt-bigquery~=1.9.0"
+
+      - name: Écrire la clé du compte de service
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          if [ -z "$GCP_SA_KEY" ]; then
+            echo "Le secret GCP_SA_KEY est absent." >&2
+            exit 1
+          fi
+          printf '%s' "$GCP_SA_KEY" > "$RUNNER_TEMP/keyfile.json"
+
+      - name: Écrire profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml <<EOF
+          default:
+            target: ci
+            outputs:
+              ci:
+                type: bigquery
+                method: service-account
+                project: databird-513513
+                dataset: local_bike_ci
+                location: EU
+                keyfile: $RUNNER_TEMP/keyfile.json
+                threads: 4
+          EOF
+
+      - name: Vérifier la connexion
+        run: dbt debug
+
+      - name: Construire et tester
+        run: dbt build
