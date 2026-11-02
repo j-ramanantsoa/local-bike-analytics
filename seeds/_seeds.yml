@@ -1,0 +1,22 @@
+version: 2
+
+# Copie des CSV simulés chargés dans local_bike_raw.
+# Désactivés par défaut : `dbt build` ne les touche pas.
+# Pour recréer local_bike_raw : dbt seed --vars '{load_raw_seeds: true}'
+
+seeds:
+  - name: stores
+    description: "Les 5 magasins Local Bike (données simulées)."
+  - name: products
+    description: "Les 21 produits, répartis en 5 catégories (données simulées)."
+  - name: customers
+    description: "Les 300 clients (données simulées)."
+  - name: orders
+    description: "Les 3 000 commandes de 2025 (données simulées)."
+    config:
+      column_types:
+        date_commande: date
+  - name: order_items
+    description: "Les 7 540 lignes de commande : un produit dans une commande (données simulées)."
+  - name: stocks
+    description: "Le stock disponible de chaque produit dans chaque magasin (données simulées)."

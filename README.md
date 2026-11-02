@@ -79,3 +79,15 @@ dbt test                       # tests seuls
 dbt docs generate              # documentation et lineage
 ```
 
+## Recréer les données brutes
+
+Les 6 CSV simulés sont versionnés dans `seeds/`. Ils sont **désactivés par défaut** : `dbt build` ne les charge pas et n'écrase jamais `local_bike_raw`.
+
+Pour recréer les tables brutes dans le dataset `local_bike_raw` :
+
+```bash
+dbt seed --vars '{load_raw_seeds: true}'
+```
+
+La macro `macros/generate_schema_name.sql` envoie les seeds dans `local_bike_raw` tel quel ; les modèles restent dans le dataset de la cible (`local_bike_dev`, `local_bike_ci`).
+
