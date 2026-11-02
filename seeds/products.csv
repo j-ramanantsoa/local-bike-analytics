@@ -1,0 +1,22 @@
+id,nom,categorie,prix_catalogue
+1,VTT Rockrider,VTT,650
+2,VTT Fury,VTT,890
+3,VTT Carbone Pro,VTT,2200
+4,Vélo route Endurance,Route,1200
+5,Vélo route Race,Route,2400
+6,Vélo route Gravel,Route,1500
+7,Vélo ville Classic,Ville,480
+8,Vélo ville Urban,Ville,620
+9,Vélo cargo,Ville,1400
+10,VAE City,Électrique,1800
+11,VAE Trail,Électrique,2600
+12,VAE Cargo,Électrique,3200
+13,Casque,Accessoires,45
+14,Antivol U,Accessoires,60
+15,Éclairage LED,Accessoires,25
+16,Sacoche cadre,Accessoires,35
+17,Gants,Accessoires,20
+18,Pompe,Accessoires,18
+19,Gourde,Accessoires,9
+20,Kit réparation,Accessoires,15
+21,Selle confort,Accessoires,55

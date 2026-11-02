@@ -41,3 +41,11 @@ models:
       +materialized: view
     marts:
       +materialized: table
+
+# Seeds : copie des CSV bruts. Désactivés par défaut pour ne jamais écraser local_bike_raw
+# pendant un `dbt build`. Pour recréer les tables brutes :
+#   dbt seed --vars '{load_raw_seeds: true}'
+seeds:
+  local_bike:
+    +enabled: "{{ var('load_raw_seeds', false) }}"
+    +schema: local_bike_raw
