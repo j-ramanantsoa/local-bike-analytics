@@ -1,0 +1,22 @@
+# Données locales (simulées, non versionnées)
+data_in/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+
+# dbt
+target/
+dbt_packages/
+logs/
+profiles.yml
+.user.yml
+
+# Secrets
+.env
+*.json.key
+*credentials*.json
