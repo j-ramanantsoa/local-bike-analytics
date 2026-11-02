@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: local_bike
+    description: "Données brutes simulées de Local Bike, chargées depuis les CSV."
+    database: databird-513513
+    schema: local_bike_raw
+    tables:
+      - name: stores
+      - name: products
+      - name: customers
+      - name: orders
+      - name: order_items
+      - name: stocks
