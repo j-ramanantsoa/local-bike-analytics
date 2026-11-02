@@ -52,7 +52,7 @@ jobs:
                 method: service-account
                 project: databird-513513
                 dataset: local_bike_ci
-                location: EU
+                location: US
                 keyfile: $RUNNER_TEMP/keyfile.json
                 threads: 4
           EOF
