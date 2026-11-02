@@ -8,7 +8,7 @@ Projet final de la formation Analytics Engineer - modéliser les données de **L
 
 | Rôle | Outil |
 |---|---|
-| Entrepôt de données | Google BigQuery (projet `databird-513513`, région `EU`) |
+| Entrepôt de données | Google BigQuery (projet `databird-513513`, région `US`) |
 | Transformation | dbt Cloud |
 | Versionnement | GitHub |
 | Tableau de bord | Looker Studio (bonus) |
