@@ -24,7 +24,12 @@ models:
   - name: stg_local_bike__order_items
     columns:
       - name: order_id
-        data_tests: [not_null]
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_local_bike__orders')
+                field: order_id
       - name: product_id
         data_tests: [not_null]
 
