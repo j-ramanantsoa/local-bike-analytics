@@ -45,12 +45,14 @@ models:
         data_tests: [unique, not_null]
       - name: store_id
         data_tests:
+          - not_null
           - relationships:
               arguments:
                 to: ref('dim_stores')
                 field: store_id
       - name: product_id
         data_tests:
+          - not_null
           - relationships:
               arguments:
                 to: ref('dim_products')
